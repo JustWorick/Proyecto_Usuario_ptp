@@ -34,4 +34,29 @@ public class Servicios {
 	public void deleteUsuario(long id) {
 		repoUsuario.deleteById(id); // DELETE * FROM usuarios WHERE id = <id>
 	}
+	
+	// Actualizar Usuario
+	public Usuario updateUsuario(Usuario nuevaInfo, Long id) {
+	    Usuario usuarioPorActualizar = repoUsuario.findById(id).orElse(null);
+
+	    if (usuarioPorActualizar != null) {
+	        if (nuevaInfo.getNombre() != null) {
+	            usuarioPorActualizar.setNombre(nuevaInfo.getNombre());
+	        }
+	        if (nuevaInfo.getApellido() != null) {
+	            usuarioPorActualizar.setApellido(nuevaInfo.getApellido());
+	        }
+	        if (nuevaInfo.getEmail() != null) {
+	            usuarioPorActualizar.setEmail(nuevaInfo.getEmail());
+	        }
+	        if (nuevaInfo.getPassword() != null) {
+	            usuarioPorActualizar.setPassword(nuevaInfo.getPassword());
+	        }
+
+	        return repoUsuario.save(usuarioPorActualizar);
+	    } else {
+	        return null;
+	    }
+	}
+	
 }
