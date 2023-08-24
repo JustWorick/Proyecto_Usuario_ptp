@@ -3,16 +3,17 @@ package com.CodingDojo.Abraham.Repositorios;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+// import org.springframework.stereotype.Repository;
 import com.CodingDojo.Abraham.Modelos.Usuario;
 
-@Repository
+// @Repository
 public interface RepositorioUsuarios extends CrudRepository<Usuario, Long> {
 	
 	List<Usuario> findAll(); // SELECT * FROM usuarios 
 	
 	// INSERT INTO usuarios (nombre, apellido, etc...)
 	// UPDATE usuarios SET nombre = Valor del objeto
+	@SuppressWarnings("unchecked")
 	Usuario save(Usuario nuevoUsuario); //Recibimos objeto usuario
 	
 	// Queries dinamicos
