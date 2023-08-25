@@ -87,23 +87,25 @@ public class ControladorUsuarios {
 	
 	@GetMapping("/dashboard")
 	public String dashboard(Model model) {
+		
 		List<Usuario> usuarios = servicio.todosUsuarios();
 		model.addAttribute("usuarios", usuarios);
+		
 		return "dashboard.jsp";
 	}
 	
 	@GetMapping("/nuevo")
-	public String nuevo(@ModelAttribute("usuario")Usuario usuarioVacio) {
+	public String nuevo(@ModelAttribute("usuario")Usuario usuario) {
 		return "nuevo.jsp";
 	}
 	
 	@PostMapping("/crear")  // @Valid permite validar la informacion de un objeto
-	public String crear(@Valid @ModelAttribute("usuario") Usuario usuarioVacio, BindingResult result) {
+	public String crear(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result) {
 		
 		if(result.hasErrors()) {
 			return "nuevo.jsp";
 		}else {
-			servicio.guardaUsuario(usuarioVacio);
+			servicio.guardaUsuario(usuario);
 		}
 		return "redirect:/dashboard";
 	}
