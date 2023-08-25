@@ -11,6 +11,7 @@ public interface RepositorioUsuarios extends CrudRepository<Usuario, Long> {
 	
 	List<Usuario> findAll(); // SELECT * FROM usuarios 
 	
+	
 	// INSERT INTO usuarios (nombre, apellido, etc...)
 	// UPDATE usuarios SET nombre = Valor del objeto
 	@SuppressWarnings("unchecked")
