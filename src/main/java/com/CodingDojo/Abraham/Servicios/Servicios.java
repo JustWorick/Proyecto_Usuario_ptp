@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.CodingDojo.Abraham.Modelos.Direccion;
 import com.CodingDojo.Abraham.Modelos.Usuario;
+import com.CodingDojo.Abraham.Repositorios.RepositorioDirecciones;
 import com.CodingDojo.Abraham.Repositorios.RepositorioUsuarios;
 
 @Service
@@ -13,6 +15,9 @@ public class Servicios {
 	
 	@Autowired // No es una instancia
 	private RepositorioUsuarios repoUsuario;
+	
+	@Autowired
+	private RepositorioDirecciones repoDir;
 	
 	// Un metodo que regresa una lista de usuarios
 	public List<Usuario> todosUsuarios(){
@@ -57,6 +62,10 @@ public class Servicios {
 	    } else {
 	        return null;
 	    }
+	}
+	
+	public Direccion guardarDireccion(Direccion nuevaDireccion) {
+		return repoDir.save(nuevaDireccion);
 	}
 	
 }

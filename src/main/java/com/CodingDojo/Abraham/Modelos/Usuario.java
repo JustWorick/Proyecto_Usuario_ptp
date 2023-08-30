@@ -4,11 +4,14 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -40,6 +43,11 @@ public class Usuario {
 	private Date createdAt;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updateAt;
+	
+	
+	@OneToOne(mappedBy="usuario", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private Direccion direcion;
+	
 	
 	
 	public Usuario() {}
@@ -131,6 +139,16 @@ public class Usuario {
 	public void setUpdateAt(Date updateAt) {
 		this.updateAt = updateAt;
 	}
+	
+	public Direccion getDirecion() {
+		return direcion;
+	}
+
+
+	public void setDirecion(Direccion direcion) {
+		this.direcion = direcion;
+	}
+
 
 	@PrePersist
 	protected void onCreate() {
