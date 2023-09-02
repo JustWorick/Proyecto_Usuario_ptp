@@ -15,18 +15,31 @@ public class Servicios {
 	
 	@Autowired // No es una instancia
 	private RepositorioUsuarios repoUsuario;
-	
 	@Autowired
 	private RepositorioDirecciones repoDir;
+	
+	
 	
 	// Un metodo que regresa una lista de usuarios
 	public List<Usuario> todosUsuarios(){
 		return repoUsuario.findAll();
 	}
 	
+	public List<Direccion> buscarTodasDirecciones(){
+		return repoDir.findAll();
+	}
+	
+	public List<Usuario> buscarUsuariosSinDireccion(){
+		return repoUsuario.findByDireccionIdIsNull();
+	}
+	
 	// Guarda un usuario
 	public Usuario guardaUsuario(Usuario nuevoUsuario) {
 		return repoUsuario.save(nuevoUsuario);
+	}
+	
+	public Direccion guardarDireccion(Direccion nuevaDireccion) {
+		return repoDir.save(nuevaDireccion);
 	}
 	
 	// Me regresa un usuario en base a su ID
@@ -35,12 +48,25 @@ public class Servicios {
 		return repoUsuario.findById(id).orElse(null);
 	}
 	
+	public Direccion buscarDireccionPorId(Long id) {
+		return repoDir.findById(id).orElse(null);
+	}
+	
 	// Borra un usuario
 	public void deleteUsuario(long id) {
 		repoUsuario.deleteById(id); // DELETE * FROM usuarios WHERE id = <id>
 	}
 	
-	// Actualizar Usuario
+	public void deleteDireccion(Long id) {
+		repoDir.deleteById(id);
+	}
+	
+	public void deleteUsuarioAndDireccion(Long usuarioId, Long direccionId) {
+		repoUsuario.deleteById(usuarioId);
+		repoDir.deleteById(direccionId);
+	}
+	
+	// Actualizar Usuario  <== puede cambiarse en un futuro
 	public Usuario updateUsuario(Usuario nuevaInfo, Long id) {
 	    Usuario usuarioPorActualizar = repoUsuario.findById(id).orElse(null);
 
@@ -64,8 +90,6 @@ public class Servicios {
 	    }
 	}
 	
-	public Direccion guardarDireccion(Direccion nuevaDireccion) {
-		return repoDir.save(nuevaDireccion);
-	}
+	
 	
 }

@@ -11,6 +11,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
@@ -46,8 +48,11 @@ public class Usuario {
 	
 	
 	@OneToOne(mappedBy="usuario", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	private Direccion direcion;
+	private Direccion direccion;
 	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="salon_id")
+	private Salon salon;
 	
 	
 	public Usuario() {}
@@ -139,17 +144,25 @@ public class Usuario {
 	public void setUpdateAt(Date updateAt) {
 		this.updateAt = updateAt;
 	}
+
+	public Direccion getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(Direccion direccion) {
+		this.direccion = direccion;
+	}
+
+	public Salon getSalon() {
+		return salon;
+	}
+
+	public void setSalon(Salon salon) {
+		this.salon = salon;
+	}
+
+
 	
-	public Direccion getDirecion() {
-		return direcion;
-	}
-
-
-	public void setDirecion(Direccion direcion) {
-		this.direcion = direcion;
-	}
-
-
 	@PrePersist
 	protected void onCreate() {
 		this.createdAt = new Date(); // DEFAULT CURRENT_TIMESTAMP

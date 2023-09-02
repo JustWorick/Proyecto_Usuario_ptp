@@ -26,4 +26,6 @@ public interface RepositorioUsuarios extends CrudRepository<Usuario, Long> {
 	
 	// SELECT * FROM usuarios WHERE nombre LIKE "<letras>%" = nombre que recibimos
 	List<Usuario> findByNombreStartingWith(String letras);
+	
+	List<Usuario> findByDireccionIdIsNull();
 }
